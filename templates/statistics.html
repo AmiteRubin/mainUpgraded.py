@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - SkyRider Website{% endblock %}
+
+{% block content %}
+    <h2>Sky Rider Statistics</h2>
+    <p>Hello, {{ username }}!</p>
+    <p>Choose team name:</p>
+    <!-- maybe make a query or something-->
+    <form method="post" action="/statistics">
+        <label for="team">Team Name:</label>
+        <input type="text" id="team" name="team" required><br>
+
+        <label for="location">Current Location:</label>
+        <input type="text" id="location" name="location" required><br>
+
+        <!-- Add a button to get the current location -->
+        <button type="button" id="getLocationButton">Get Location</button><br>
+
+        <label for="mission_purpose">Purpose of Mission:</label>
+        <textarea id="mission_purpose" name="mission_purpose" rows="4"></textarea><br>
+
+        <label for="takeoff_time">Takeoff Time:</label>
+        <input type="datetime-local" id="takeoff_time" name="takeoff_time" required><br>
+
+
+        <label for="landing_time">Landing Time:</label>
+        <input type="datetime-local" id="landing_time" name="landing_time" required><br>
+
+
+        <label for="central_wing">Central Wing:</label>
+        <input type="text" id="central_wing" name="central_wing" required><br>
+
+        <label for="left_dihedral">Left Dihedral:</label>
+        <input type="text" id="left_dihedral" name="left_dihedral" required><br>
+
+        <label for="right_dihedral">Right Dihedral:</label>
+        <input type="text" id="right_dihedral" name="right_dihedral" required><br>
+
+        <label for="boom_tail">Boom Tail:</label>
+        <input type="text" id="boom_tail" name="boom_tail" required><br>
+
+        <label for="boom_engine">Boom Engine:</label>
+        <input type="text" id="boom_engine" name="boom_engine" required><br>
+
+        <label for="height_rudder">Height Rudder:</label>
+        <input type="text" id="height_rudder" name="height_rudder" required><br>
+
+        <label for="battery">Battery:</label>
+        <input type="text" id="battery" name="battery" required><br>
+
+        <label for="gps_transmitter">GPS Transmitter:</label>
+        <input type="text" id="gps_transmitter" name="gps_transmitter" required><br>
+
+        <label for="exceptional_event_bool">Exceptional Event Occurred?</label>
+        <select id="exceptional_event_bool" name="exceptional_event_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="exceptional_event_details">Exceptional Event Details:</label>
+        <textarea id="exceptional_event_details" name="exceptional_event_details" rows="4"></textarea><br>
+
+        <label for="products_bool">Products?</label>
+        <select id="products_bool" name="products_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+
+        <button type="submit">Submit Report</button>
+    </form>
+
+    <!--
+    <div id="map-container" style="height: 500px; width: 100%;">
+        <div id="map"></div>
+    </div>
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Create the map
+        var map = L.map('map').setView([31.5, 34.75], 8); // Centered around Israel
+
+        // Set bounds to restrict the map view to Israel
+        var bounds = [[29.5, 30], [33.5, 36.5]];
+        map.setMaxBounds(bounds);
+        map.on('drag', function () {
+            map.panInsideBounds(bounds, { animate: false });
+        });
+
+        // Add a tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18,  // Set maximum zoom level
+            minZoom: 8   // Set minimum zoom level
+        }).addTo(map);
+
+        // Add markers for each set of coordinates
+        {% for coordinates in coordinates_list %}
+            L.marker([{{ coordinates['Location'] }}]).addTo(map)
+                .bindPopup('<b>{{ coordinates['Team'] }}</b><br>{{ coordinates['Location'] }}');
+        {% endfor %}
+    </script>-->
+{% endblock %}

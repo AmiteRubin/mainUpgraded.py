@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome To SkyRider Web App{% endblock %}
+
+{% block content %}
+    <h1>Welcome To SkyRider Web App</h1>
+    <p>This is the website of Unit 53 in the IDF.</p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p style="color: green;">{{ messages[0] }}</p>
+        {% endif %}
+    {% endwith %}
+
+    {% if username %}
+        <p>Welcome, <strong>{{ username }}</strong>!</p>
+    {% else %}
+        <p>Welcome, feel free to log in!</p>
+    {% endif %}
+{% endblock %}

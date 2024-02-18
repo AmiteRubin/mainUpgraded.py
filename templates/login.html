@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+<!-- Head Section -->
+<head>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+
+{% block content %}
+    <h1>Login to your Sky Rider account</h1>
+    {% if message %}
+        <p style="color: red;">{{ message }}</p>
+    {% endif %}
+    <form method="post" action="/login">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required style="margin-bottom: 10px; padding: 5px;"><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required style="margin-bottom: 10px; padding: 5px;"><br>
+        <button type="submit" style="padding: 10px; background-color: #0066cc; color: #fff; border: none; cursor: pointer;">Login</button>
+    </form>
+
+    <!-- Add Google Sign-In Button -->
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <!-- JavaScript Function to Handle Google Sign-In -->
+    <script>
+        function onSignIn(googleUser) {
+            // This function will be called when the user signs in
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do something with the user's ID
+            console.log('Name: ' + profile.getName()); // Do something with the user's name
+            console.log('Email: ' + profile.getEmail()); // Do something with the user's email
+
+            // Optionally, you can send the user's Google profile information to your server for verification and login.
+            // Example AJAX request to send data to the server:
+            /*
+            $.ajax({
+                type: 'POST',
+                url: '/google-login',
+                data: {
+                    id: profile.getId(),
+                    name: profile.getName(),
+                    email: profile.getEmail()
+                },
+                success: function(response) {
+                    console.log('Server response:', response);
+                    // Handle the server response as needed
+                }
+            });
+            */
+        }
+    </script>
+{% endblock %}

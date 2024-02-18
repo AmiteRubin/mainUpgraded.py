@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Manpower - SkyRider Website{% endblock %}
+
+{% block content %}
+    <h1>Manage Equipment</h1>
+    <p>Hello, {{ username }}!</p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p style="color: green;">{{ messages[0] }}</p>
+        {% endif %}
+    {% endwith %}
+    <p>These are the operators currently reported at the unit:</p>
+    <!-- Operators Table -->
+    <h3>Flight Equipment</h3>
+    <div id="table-container-operators">
+        <table border="1">
+            <tbody>
+                {% for i in range(0, team_equipment_df.shape[0], 10) %}
+                    <tr>
+                        {% for j in range(10) %}
+                            {% if i + j < op_df.shape[0] %}
+                                <td>{{ op_df.iloc[i + j]['Operator'] }}</td>
+                            {% else %}
+                                <td></td>  <!-- Add empty cells if not enough operators for a full column -->
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+        <form method="post" action="/manage_equipment">
+        <label for="change_parts_bool">Do you want to change flight equipment?</label>
+        <select id="change_parts_bool" name="change_parts_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="central_wing_replace_bool">Do you want to change central wing?</label>
+        <select id="central_wing_replace_bool" name="central_wing_replace_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="central_wing_to_replace">Choose central wing to replace</label>
+        <select id="central_wing_to_replace" name="central_wing_to_replace">
+            {% for central_wing in central_wings_list %}
+                <option value="{{ central_wing }}">{{ central_wing }}</option>
+            {% endfor %}
+        </select><br>
+
+            <label for="new_central_wing">Central Wing's ID:</label>
+        <input type="text" id="new_central_wing" name="new_central_wing" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+        <label for="right_dihedral_replace_bool">Do you want to change right dihedral?</label>
+        <select id="right_dihedral_replace_bool" name="right_dihedral_replace_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="right_dihedral_to_replace">Choose right dihedral to replace</label>
+        <select id="right_dihedral_to_replace" name="right_dihedral_to_replace">
+            {% for right_dihedral in right_dihedral %}
+                <option value="{{ right_dihedral }}">{{ right_dihedral }}</option>
+            {% endfor %}
+        </select><br>
+
+            <label for="new_right_dihedral">Right Dihedral's ID:</label>
+        <input type="text" id="new_right_dihedral" name="new_right_dihedral" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+        <label for="team_add_bool">Do you want to add Teams?</label>
+        <select id="team_add_bool" name="team_add_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+        <!-- todo copy paste all of the above and edit accordingly in order to enable changes in the table
+        via the web app itself-->
+        <label for="teams_to_add">Insert Team names to add, seperated by ","</label>
+        <textarea id="teams_to_add" name="teams_to_add" rows="2"></textarea><br>
+
+        <label for="op_erase_bool">Do you want to erase Operators?</label>
+        <select id="op_erase_bool" name="op_erase_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="op_to_erase">Insert Operators names to erase, seperated by ","</label>
+        <textarea id="op_to_erase" name="op_to_erase" rows="2"></textarea><br>
+
+
+        <label for="team_erase_bool">Do you want to erase Teams?</label>
+        <select id="team_erase_bool" name="team_erase_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="teams_to_erase">Insert Team names to erase, seperated by ","</label>
+        <textarea id="teams_to_erase" name="teams_to_erase" rows="2"></textarea><br>
+
+
+        <!-- take into consideration that if the boolean isn't true, none of the details there will be
+        recorded-->
+
+        <button type="submit">Submit Changes</button>
+    </form>
+
+{% endblock %}

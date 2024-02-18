@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Scan QR Code{% endblock %}
+
+{% block content %}
+    <h1>Scan QR Code</h1>
+    <form method="post" action="/process_qr" enctype="multipart/form-data">
+        <label for="qr_image">Upload QR Code Image:</label>
+        <input type="file" name="qr_image" accept="image/*" required><br>
+        <button type="submit" style="padding: 10px; background-color: #0066cc; color: #fff; border: none; cursor: pointer;">Submit QR Code</button>
+    </form>
+{% endblock %}

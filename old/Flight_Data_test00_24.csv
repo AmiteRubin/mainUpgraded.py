@@ -1,0 +1,5 @@
+Flight Number,Team,Location,Mission Purpose,Takeoff Time,Landing Time,Air Time,Central Wing,Left Dihedral,Right Dihedral,Boom Tail,Boom Engine,Height Rudder,Battery,GPS Transmitter,Exceptional Event Occurred,Exceptional Event Details,Products,Date Reported
+1,Bazak,"32.0765952, 34.7930624",,2024-01-27T11:24,2024-01-27T00:24,"-1 day, 13:00:00",1,2,3,4,5,6,7,8,True,sds,False,27.01.24
+2,Bitter,"32.0660485, 34.8292901",,2024-01-27T12:26,,,1,1,1,1,1,1,1,1,,,,27.01.24
+3,Bitter,"32.0660485, 34.8292901",,2024-01-27T12:26,2024-01-27T13:26,1:00:00,1,1,1,1,1,1,1,1,True,,False,27.01.24
+4,Bazak,"32.0660485, 34.8292901",1,2024-01-27T12:28,2024-01-27T13:30,0 days 01:02:00,1,2,3,4,5,6,7,8,True,no details,False,27.01.24

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome To SkyRider (Unit 53) Website{% endblock %}</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        nav {
+            width: 200px;
+            height: 100%;
+            background-color: #0066cc;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>SkyRider</h1>
+        <a href="/">Home</a>
+        {% if username %}
+            <a href="/report_flight">Report Flight</a>
+            <a href="/report_takeoff">Report Takeoff</a>
+            <a href="/report_landing">Report Landing</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/manage_manpower">Manage Manpower</a>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+    </nav>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
