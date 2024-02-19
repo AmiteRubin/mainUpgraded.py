@@ -14,6 +14,7 @@ teams_file_path = os.path.join(os.getcwd(), f'teams_demo_1_{this_year}.csv')
 
 google_client_id = "352166391876-0l55a5neb73p1ij1ae9frqumqqfdk2j3.apps.googleusercontent.com"
 
+
 def verify_google_token(token):
     try:
         idinfo = id_token.verify_oauth2_token(token, requests.Request(), google_client_id)
@@ -23,7 +24,6 @@ def verify_google_token(token):
             'sub': idinfo['sub'],
             'name': idinfo['name'],
             'email': idinfo['email'],
-            # Additional information...
         }
 
         return user_info
@@ -32,30 +32,31 @@ def verify_google_token(token):
         return None
 
 
-
 if os.path.exists(flight_data_file_path):
     df_flight_data = pd.read_csv(flight_data_file_path, index_col='Flight Number')
 else:
-    #there is a need to include delta which is air_time
-    df_flight_data = pd.DataFrame(columns=['Team', 'Location', 'Mission Purpose', 'Takeoff Time',\
-                               'Landing Time', 'Air Time', 'Central Wing', 'Left Dihedral', 'Right Dihedral',\
-                               'Boom Tail', 'Boom Engine', 'Height Rudder','Battery',\
-                               'GPS Transmitter', 'Payload', 'Pod', 'Operator 1', 'Operator 2', 'Operator 3',\
-                                'Operator 4', 'Exceptional Event Occurred', 'Exceptional Event Details',\
-                                'Products' , 'Date Reported'])
+    # there is a need to include delta which is air_time
+    df_flight_data = pd.DataFrame(columns=['Team', 'Location', 'Mission Purpose', 'Takeoff Time',
+                                           'Landing Time', 'Air Time', 'Central Wing', 'Left Dihedral',
+                                           'Right Dihedral',
+                                           'Boom Tail', 'Boom Engine', 'Height Rudder', 'Battery',
+                                           'GPS Transmitter', 'Payload', 'Pod', 'Operator 1', 'Operator 2',
+                                           'Operator 3',
+                                           'Operator 4', 'Exceptional Event Occurred', 'Exceptional Event Details',
+                                           'Products', 'Date Reported'])
     df_flight_data.index.name = 'Flight Number'
     df_flight_data.to_csv(flight_data_file_path)
 
 if os.path.exists(operators_file_path):
     op_df = pd.read_csv(operators_file_path)
 else:
-    op_df = pd.DataFrame(columns=['Operator'],)
+    op_df = pd.DataFrame(columns=['Operator'], )
     op_df.to_csv(operators_file_path, index=False)
 
 if os.path.exists(teams_file_path):
     teams_df = pd.read_csv(teams_file_path)
 else:
-    teams_df = pd.DataFrame(columns=['Team'],)
+    teams_df = pd.DataFrame(columns=['Team'], )
     teams_df.to_csv(teams_file_path, index=False)
 
 # Hardcoded user for demonstration purposes
@@ -64,9 +65,11 @@ hardcoded_user = {
     'password': 'password123'
 }
 
+
 @app.route('/')
 def index():
     return render_template('index.html', username=session.get('username'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -98,10 +101,12 @@ def login():
 
     return render_template('login.html', message='')
 
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)  # Remove the username from the session
     return redirect(url_for('index'))
+
 
 @app.route('/report_flight', methods=['GET', 'POST'])
 def report_flight():
@@ -113,7 +118,7 @@ def report_flight():
     if request.method == 'POST':
         # Generate a new Flight Number as the next available index in the DataFrame
         flight_number = int(df_flight_data.index.max()) + 1 if not df_flight_data.empty else 1
-        #flight_number = str(int(df.index.max()) + 1) if not df.empty else '1'
+        # flight_number = str(int(df.index.max()) + 1) if not df.empty else '1'
         team_name = request.form['team']
         location = request.form['location']
         mission_purpose = request.form['mission_purpose']
@@ -178,29 +183,31 @@ def report_flight():
         return render_template('index.html', username=session.get('username'))
         # Assuming 'index.html' is your landing page template
 
-    return render_template('report_flight.html',\
-                           username=session.get('username'), teams_list=teams_list,\
+    return render_template('report_flight.html',
+                           username=session.get('username'), teams_list=teams_list,
                            operators_list=operators_list)
 
 
 @app.route('/report_takeoff', methods=['GET', 'POST'])
 def report_takeoff():
+    # if the team has an unfinished flight, first, errorrepo
     teams_list = pd.read_csv(teams_file_path)['Team'].tolist()
     operators_list = pd.read_csv(operators_file_path)['Operator'].tolist()
     if 'username' not in session:
         return redirect(url_for('login'))
+
     if request.method == 'POST':
         # Generate a new Flight Number as the next available index in the DataFrame
         # i think there is a need to convert flight_number to be an integer, and make it a string while
         # returned to a user. should check it out, and then .max() func won't do any problems of comparing
         # integers to strings.
-        #flight_number = str(int(df.index.max()) + 1) if not df.empty else '1'
+        # flight_number = str(int(df.index.max()) + 1) if not df.empty else '1'
         flight_number = int(df_flight_data.index.max()) + 1 if not df_flight_data.empty else 1
         team_name = request.form['team']
         location = request.form['location']
         mission_purpose = request.form['mission_purpose']
-        #there is a chance that there is no need to make it in that format. important for the users to
-        #be able to read the time of takeoff and time of landing properly.
+        # there is a chance that there is no need to make it in that format. important for the users to
+        # be able to read the time of takeoff and time of landing properly.
         takeoff_time = request.form['takeoff_time']
         central_wing = request.form['central_wing']
         left_dihedral = request.form['left_dihedral']
@@ -217,8 +224,8 @@ def report_takeoff():
         third_operator = request.form['third_operator']
         fourth_operator = request.form['fourth_operator']
 
-        #maybe use the index of the flight_number, rather then the string that represents it. it'll solve
-        #the problem
+        # maybe use the index of the flight_number, rather then the string that represents it. it'll solve
+        # the problem
         df_flight_data.loc[flight_number] = {
             'Team': team_name,
             'Location': location,
@@ -238,7 +245,7 @@ def report_takeoff():
             'Operator 2': second_operator,
             'Operator 3': third_operator,
             'Operator 4': fourth_operator,
-            #there is a need to understand, which time is considered to be the time of the report
+            # there is a need to understand, which time is considered to be the time of the report
             'Date Reported': datetime.today().strftime('%d.%m.%y')
         }
 
@@ -247,9 +254,8 @@ def report_takeoff():
         flash(f"Takeoff report recorded successfully, your flight number is {flight_number}!")
         return render_template('index.html', username=session.get('username'))
 
-    return render_template('report_takeoff.html',username=session.get('username'),\
+    return render_template('report_takeoff.html', username=session.get('username'),
                            teams_list=teams_list, operators_list=operators_list)
-
 
 
 @app.route('/report_landing', methods=['GET', 'POST'])
@@ -270,8 +276,8 @@ def report_landing():
         existing_row_index = df_flight_data.index.get_loc(int(flight_number))
 
         # Extract takeoff time from the existing row
-        takeoff_time_to_calc = datetime.strptime(\
-            df_flight_data.loc[df_flight_data.index[existing_row_index]]['Takeoff Time'],'%Y-%m-%dT%H:%M')
+        takeoff_time_to_calc = datetime.strptime(
+            df_flight_data.loc[df_flight_data.index[existing_row_index]]['Takeoff Time'], '%Y-%m-%dT%H:%M')
 
         # Calculate Air Time as timedelta
         air_time = landing_time_to_calc - takeoff_time_to_calc
@@ -279,19 +285,22 @@ def report_landing():
         # Update the entire row in the DataFrame
         df_flight_data.loc[df_flight_data.index[existing_row_index], 'Landing Time'] = landing_time
         df_flight_data.loc[df_flight_data.index[existing_row_index], 'Air Time'] = air_time
-        df_flight_data.loc[df_flight_data.index[existing_row_index], 'Exceptional Event Occurred'] =\
-            exceptional_event_bool
-        df_flight_data.loc[df_flight_data.index[existing_row_index], 'Exceptional Event Details'] =\
-            exceptional_event_details
-        df_flight_data.loc[df_flight_data.index[existing_row_index], 'Products'] = products_bool
+        df_flight_data.loc[df_flight_data.index[existing_row_index], 'Exceptional Event Occurred'] =
+        exceptional_event_bool
+    df_flight_data.loc[df_flight_data.index[existing_row_index], 'Exceptional Event Details'] =
+    exceptional_event_details
 
-        # Save DataFrame to CSV
-        df_flight_data.to_csv(flight_data_file_path)
 
-        flash(f"Landing report recorded successfully!")
-        return redirect(url_for('index'))
+df_flight_data.loc[df_flight_data.index[existing_row_index], 'Products'] = products_bool
 
-    return render_template('report_landing.html', username=session.get('username'))
+# Save DataFrame to CSV
+df_flight_data.to_csv(flight_data_file_path)
+
+flash(f"Landing report recorded successfully!")
+return redirect(url_for('index'))
+
+return render_template('report_landing.html', username=session.get('username'))
+
 
 @app.route('/dashboard')
 def dashboard():
@@ -308,7 +317,7 @@ def dashboard():
     on_air_df['Current Air Time'] = current_time - pd.to_datetime(on_air_df['Takeoff Time'])
 
     # Convert the time difference to hours and minutes
-    on_air_df['Current Air Time'] = on_air_df['Current Air Time'].apply(\
+    on_air_df['Current Air Time'] = on_air_df['Current Air Time'].apply(
         lambda x: "{:0>2}:{:0>2}".format(int(x.total_seconds() // 3600), int((x.total_seconds() % 3600) // 60)))
 
     # Reset the index to include 'Flight Number' as a regular column
@@ -324,17 +333,18 @@ def dashboard():
 
     exc_event_df = exc_event_df.reset_index()
 
-    exc_event_df_table_columns = ['Flight Number', 'Team', 'Location',\
+    exc_event_df_table_columns = ['Flight Number', 'Team', 'Location',
                                   'Exceptional Event Details', 'Air Time', 'Date Reported']
 
     # Convert DataFrame to list of dictionaries for rendering in the template
-    exc_event_table_data = exc_event_df[exc_event_df_table_columns]#.to_dict(orient='records')
+    exc_event_table_data = exc_event_df[exc_event_df_table_columns]  # .to_dict(orient='records')
 
-    return render_template('dashboard.html', on_air_table_data=on_air_table_data,\
-                           on_air_table_columns=on_air_table_columns,\
-                           exc_event_table_data=exc_event_table_data, \
-                           exc_event_df_table_columns=exc_event_df_table_columns,\
+    return render_template('dashboard.html', on_air_table_data=on_air_table_data,
+                           on_air_table_columns=on_air_table_columns,
+                           exc_event_table_data=exc_event_table_data,
+                           exc_event_df_table_columns=exc_event_df_table_columns,
                            username=session.get('username'))
+
 
 """
 @app.route('/dashboard')
@@ -416,7 +426,7 @@ def statistics():
 
     exc_event_df = exc_event_df.reset_index()
 
-    exc_event_df_table_columns = ['Flight Number', 'Team', 'Location', 'Exceptional Event Details',\
+    exc_event_df_table_columns = ['Flight Number', 'Team', 'Location', 'Exceptional Event Details',
                                   'Date Reported']
 
     # Convert DataFrame to list of dictionaries for rendering in the template
@@ -430,13 +440,12 @@ def statistics():
 
     # Convert coordinates to a list of dictionaries
     coordinates_list = team_coordinates.to_dict(orient='records')
-    return render_template('dashboard.html', on_air_table_data=on_air_table_data,\
-                           on_air_table_columns=on_air_table_columns,\
-                           exc_event_table_data=exc_event_table_data, \
-                           exc_event_df_table_columns=exc_event_df_table_columns,\
+    return render_template('dashboard.html', on_air_table_data=on_air_table_data,
+                           on_air_table_columns=on_air_table_columns,
+                           exc_event_table_data=exc_event_table_data, 
+                           exc_event_df_table_columns=exc_event_df_table_columns,
                            username=session.get('username'))
 """
-
 
 
 @app.route('/manage_manpower', methods=['GET', 'POST'])
@@ -475,7 +484,7 @@ def manage_manpower():
             op_to_erase = request.form['op_to_erase']
             op_list_to_erase = op_to_erase.split(',')
             op_df = op_df[~op_df['Operator'].isin(op_list_to_erase)]
-        #strip spaces
+        # strip spaces
         if team_erase_bool:
             teams_to_erase = request.form['teams_to_erase']
             teams_list_to_erase = teams_to_erase.split(',')
@@ -497,7 +506,8 @@ def manage_manpower():
                            team_columns=team_columns,
                            username=session.get('username'))
 
-#todo complete the manage equipment template
+
+# todo complete the manage equipment template
 """
 @app.route('/manage_equipment', methods=['GET', 'POST'])
 def manage_equipment():
@@ -506,13 +516,13 @@ def manage_equipment():
     if 'username' not in session:
         return redirect(url_for('login'))
     team_name = session['username'] # strip the team from username, and create a folder accordingly
-    team_equipment_file_path = os.path.join(os.getcwd(),f'teams\\{team_name}')
+    team_equipment_file_path = os.path.join(os.getcwd(),f'teams{team_name}')
 
     if os.path.exists(team_equipment_file_path):
         team_equipment_df = pd.read_csv(team_equipment_file_path)
     else:
-        team_equipment_df = pd.DataFrame(columns=['Central Wing', 'Left Dihedral', 'Right Dihedral',\
-                               'Boom Tail', 'Boom Engine', 'Height Rudder','Battery',\
+        team_equipment_df = pd.DataFrame(columns=['Central Wing', 'Left Dihedral', 'Right Dihedral',
+                               'Boom Tail', 'Boom Engine', 'Height Rudder','Battery',
                                'GPS Transmitter', 'Payload', 'Pod'], )
         team_equipment_df.to_csv(team_equipment_file_path, index=False)
     # call a function to initiate the first table for the team, with the zeros in the relevant elements
@@ -579,4 +589,4 @@ def manage_equipment():
 """
 
 if __name__ == '__main__':
-    app.run(debug=True)#host='IPv4', port = 5000 remember to turnoff firewall
+    app.run(debug=True)  # host='IPv4', port = 5000 remember to turnoff firewall
