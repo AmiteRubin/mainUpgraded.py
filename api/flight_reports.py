@@ -16,7 +16,6 @@ router = APIRouter(prefix='/api/v1/flights', tags=['Flight Reports'])
 @router.post('/team/flight/start')
 async def report_takeoff(user: AuthTeamMemeber): ...
 
-
 @router.post('/team/flight/close')
 async def report_landing(user: AuthTeamMemeber) -> MissionReport:
     current_mission = await MissionReport.find(
@@ -33,7 +32,8 @@ async def report_landing(user: AuthTeamMemeber) -> MissionReport:
 
 
 @router.post('/team/flight')
-async def report_flight(user: AuthTeamMemeber): ...
+async def report_flight(user: AuthTeamMemeber):
+    print('hi')
 
 
 @router.get('/team')
