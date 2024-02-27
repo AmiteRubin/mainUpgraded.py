@@ -58,6 +58,7 @@ async def report_takeoff(request: Request, form: MissionReportForm = Form(...)):
         raise HTTPException(status_code=400, detail="Active mission found")
         #i can give the user the flight that is now on going!
     """
+    sasd
     team = await Team.find_one(Team.name == form.team_name)
     existing_mission = MissionReport.find(
         MissionReport.team.id == team.id,
