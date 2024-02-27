@@ -1,0 +1,8 @@
+Flight Number,Team,Location,Mission Purpose,Takeoff Time,Landing Time,Air Time,Central Wing,Left Dihedral,Right Dihedral,Boom Tail,Boom Engine,Height Rudder,Battery,GPS Transmitter,Exceptional Event Occurred,Exceptional Event Details,Products,Date Reported
+1,Amit,"32.079872, 34.783232",Firearms Targeting,2024-02-06T16:32,2024-02-06T17:34,0 days 01:02:00,1,1,1,1,1,1,1,1,1.0,,0.0,06.02.24
+2,Bitter,"32.079872, 34.783232",Breaking Event,2024-02-06T16:30,2024-02-06T17:34,0 days 01:04:00,1,1,1,1,1,1,1,1,1.0,,0.0,06.02.24
+3,Rubin,"32.0768485, 34.7772753",IBM,2024-02-07T12:16,2024-02-07T13:19,1:03:00,1,1,1,1,1,1,1,1,True,plane crashed,False,07.02.24
+4,Cohen,"32.0767483, 34.7863319",Firearms Targeting,2024-02-08T12:15,2024-02-08T13:20,1:05:00,1,1,1,1,1,1,1,1,True,plane crashed,False,08.02.24
+5,Rubin,"32.079872, 34.783232",Breaking Event,2024-02-08T21:05,2024-02-08T22:07,0 days 01:02:00,1,1,1,1,1,1,1,1,True,,False,08.02.24
+6,Bazak,"32.079872, 34.783232",Practice,2024-02-08T21:02,2024-02-08T22:10,1:08:00,1,1,1,1,1,1,1,1,False,,True,08.02.24
+7,Bazak,"32.079872, 34.783232",Firearms Targeting,2024-02-18T19:53,2024-02-19T19:02,23:09:00,1,1,3,1,1,6,1,2,True,e,False,18.02.24

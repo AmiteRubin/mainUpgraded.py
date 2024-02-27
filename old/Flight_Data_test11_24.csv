@@ -1,0 +1,2 @@
+Flight Number,Team,Location,Mission Purpose,Takeoff Time,Landing Time,Air Time,Central Wing,Left Dihedral,Right Dihedral,Boom Tail,Boom Engine,Height Rudder,Battery,GPS Transmitter,Exceptional Event Occurred,Exceptional Event Details,Products,Date Reported
+1,Bazak,"32.0768756, 34.7772888",A,2024-01-27T11:15,2024-01-27 00:20:00,"-1 day, 13:05:00",1,2,3,4,5,8,6,7,True,,False,27.01.24

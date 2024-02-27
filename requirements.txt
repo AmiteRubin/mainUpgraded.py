@@ -1,0 +1,5 @@
+fastapi==0.109.2
+uvicorn==0.27.1
+beanie==1.25.0
+passlib==1.7.4
+pydantic-settings==2.2.0

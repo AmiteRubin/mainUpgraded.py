@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Report Landing{% endblock %}
+
+{% block content %}
+    <h1>Report Landing</h1>
+    <form method="post" action="/report_landing">
+        <label for="flight_number">Flight Number:</label>
+        <input type="text" id="flight_number" name="flight_number" required><br>
+
+        <label for="landing_time">Landing Time:</label>
+        <input type="datetime-local" id="landing_time" name="landing_time" required><br>
+
+        <label for="exceptional_event_bool">Exceptional Event Occurred?</label>
+        <select id="exceptional_event_bool" name="exceptional_event_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="exceptional_event_details">Exceptional Event Details:</label>
+        <textarea id="exceptional_event_details" name="exceptional_event_details" rows="4"></textarea><br>
+
+        <label for="products_bool">Products?</label>
+        <select id="products_bool" name="products_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+
+        <button type="submit">Submit Landing</button>
+    </form>
+
+{% endblock %}

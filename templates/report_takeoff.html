@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Report Takeoff{% endblock %}
+
+{% block content %}
+    <h1>Report Takeoff</h1>
+    <form method="post" action="/report_takeoff">
+        <label for="team">Team Name:</label>
+        <select id="team" name="team" required>
+            {% for team in teams_list %}
+                <option value="{{ team }}">{{ team }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="location">Current Location:</label>
+        <input type="text" id="location" name="location" required><br>
+
+        <!-- Add a button to get the current location -->
+        <button type="button" id="getLocationButton">Get Location</button><br>
+
+        <!--<label for="mission_purpose">Purpose of Mission:</label>
+        <textarea id="mission_purpose" name="mission_purpose" rows="4"></textarea><br>-->
+
+        <label for="mission_purpose">Purpose of Mission:</label>
+        <select id="mission_purpose" name="mission_purpose" required>
+            <option value="IBM">IBM</option>
+            <option value="Force Security">Force Security</option>
+            <option value="Firearms Targeting">Firearms Targeting</option>
+            <option value="Breaking Event">Breaking Event</option>
+            <option value="Practice">Practice</option>
+        </select><br>
+
+        <label for="takeoff_time">Takeoff Time:</label>
+        <input type="datetime-local" id="takeoff_time" name="takeoff_time" required><br>
+
+
+        <label for="central_wing">Central Wing:</label>
+        <input type="text" id="central_wing" name="central_wing" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+        <label for="left_dihedral">Left Dihedral:</label>
+        <input type="text" id="left_dihedral" name="left_dihedral" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+        <label for="right_dihedral">Right Dihedral:</label>
+        <input type="text" id="right_dihedral" name="right_dihedral" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+        <label for="boom_tail">Boom Tail:</label>
+        <input type="text" id="boom_tail" name="boom_tail" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+        <label for="boom_engine">Boom Engine:</label>
+        <input type="text" id="boom_engine" name="boom_engine" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+        <label for="height_rudder">Height Rudder:</label>
+        <input type="text" id="height_rudder" name="height_rudder" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+        <label for="battery">Battery:</label>
+        <input type="text" id="battery" name="battery" pattern="[0-9]{1,4}" title="Please enter digits only (maximum 4)" required><br>
+
+
+        <label for="gps_transmitter">GPS Transmitter:</label>
+        <input type="text" id="gps_transmitter" name="gps_transmitter" required><br>
+
+        <label for="payload">Payload:</label>
+        <input type="text" id="payload" name="payload" pattern="[0-9]{1,9}" title="Please enter digits only (maximum 9)" required><br>
+
+        <label for="pod">Pod:</label>
+        <input type="text" id="pod" name="pod" pattern="[0-9]{6}" title="Please enter digits only (maximum 6)" required><br>
+
+        <label for="first_operator">Operator 1:</label>
+        <select id="first_operator" name="first_operator" required>
+            {% for operator in operators_list %}
+                <option value="{{ operator }}">{{ operator }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="second_operator">Operator 2:</label>
+        <select id="second_operator" name="second_operator" required>
+            {% for operator in operators_list %}
+                <option value="{{ operator }}">{{ operator }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="third_operator">Operator 3:</label>
+        <select id="third_operator" name="third_operator" required>
+            {% for operator in operators_list %}
+                <option value="{{ operator }}">{{ operator }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="fourth_operator">Operator 4:</label>
+        <select id="fourth_operator" name="fourth_operator" required>
+            {% for operator in operators_list %}
+                <option value="{{ operator }}">{{ operator }}</option>
+            {% endfor %}
+        </select><br>
+
+        <button type="submit">Submit Takeoff</button>
+    </form>
+
+    <script>
+        document.getElementById('getLocationButton').addEventListener('click', function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    document.getElementById('location').value = latitude + ', ' + longitude;
+                }, function (error) {
+                    alert('Error getting location: ' + error.message);
+                });
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        });
+    </script>
+{% endblock %}

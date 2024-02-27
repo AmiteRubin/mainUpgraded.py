@@ -1,0 +1,11 @@
+Flight Number,Team,Location,Mission Purpose,Takeoff Time,Landing Time,Air Time,Central Wing,Left Dihedral,Right Dihedral,Boom Tail,Boom Engine,Height Rudder,Battery,GPS Transmitter,Exceptional Event Occurred,Exceptional Event Details,Products,Date Reported
+1,Bazak,"31.8048501, 34.9376171",Force Security,2024-02-03T18:10,2024-02-03T19:16,1:06:00,1,2,3,4,5,6,7,8,1.0,,0.0,03.02.24
+2,Bazak,"11,11",IBM,2024-02-04T22:50,2024-02-04T23:50,0 days 01:00:00,1,1,1,1,1,1,1,1,1.0,,0.0,04.02.24
+3,Amit,"22,22",Force Security,2024-02-04T22:49,2024-02-04T23:53,1:04:00,2,2,2,2,2,2,2,2,False,,True,04.02.24
+4,Michael,"32.0731675, 34.8492161",Breaking Event,2024-02-05T15:00,2024-02-05T16:03,1:03:00,1,2,3,4,5,6,7,8,True,,False,05.02.24
+5,Ester,"32.0731038, 34.8492967",Breaking Event,2024-02-05T16:45,2024-02-05T17:48,1:03:00,1,2,3,4,5,6,7,8,True,The plane stressed out,False,05.02.24
+6,Vika,"32.079872, 34.783232",Force Security,2024-02-05T20:45,2024-02-05T23:10,2:25:00,1,1,1,1,1,1,1,1,True,,False,05.02.24
+7,Tomer,"32.0674743, 34.7724176",Force Security,2024-02-06T14:47,2024-02-06T15:49,1:02:00,1,1,1,1,1,1,1,1,True,plane crashed,False,06.02.24
+8,Paz,"32.079872, 34.783232",Breaking Event,2024-02-06T16:07,2024-02-06T18:10,2:03:00,1,2,3,4,5,6,7,8,False,,False,06.02.24
+9,Amit,"32.079872, 34.783232",Force Security,2024-02-06T16:21,2024-02-06T17:21,0 days 01:00:00,1,1,1,1,1,1,1,1,True,,False,06.02.24
+10,Bazak,"32.079872, 34.783232",Breaking Event,2024-02-06T16:20,2024-02-06T17:24,1:04:00,1,2,2,3,4,6,6,8,True,,False,06.02.24

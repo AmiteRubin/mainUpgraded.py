@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Manpower - SkyRider Website{% endblock %}
+
+{% block content %}
+    <h1>Manage Manpower</h1>
+    <p>Hello, {{ username }}!</p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p style="color: green;">{{ messages[0] }}</p>
+        {% endif %}
+    {% endwith %}
+    <p>These are the operators currently reported at the unit:</p>
+    <!-- Operators Table -->
+    <h3>Operators</h3>
+    <div id="table-container-operators">
+        <table border="1">
+            <tbody>
+                {% for i in range(0, op_df.shape[0], 10) %}
+                    <tr>
+                        {% for j in range(10) %}
+                            {% if i + j < op_df.shape[0] %}
+                                <td>{{ op_df.iloc[i + j]['Operator'] }}</td>
+                            {% else %}
+                                <td></td>  <!-- Add empty cells if not enough operators for a full column -->
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Teams Table -->
+    <h3>Teams</h3>
+    <div id="table-container-teams">
+        <table border="1">
+            <tbody>
+                {% for i in range(0, team_df.shape[0], 5) %}
+                    <tr>
+                        {% for j in range(5) %}
+                            {% if i + j < team_df.shape[0] %}
+                                <td>{{ team_df.iloc[i + j]['Team'] }}</td>
+                            {% else %}
+                                <td></td>  <!-- Add empty cells if not enough teams for a full column -->
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+<form method="post" action="/manage_manpower">
+        <label for="op_add_bool">Do you want to add Operators?</label>
+        <select id="op_add_bool" name="op_add_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="op_to_add">Insert Operators names to add, seperated by ","</label>
+        <textarea id="op_to_add" name="op_to_add" rows="2"></textarea><br>
+
+        <label for="team_add_bool">Do you want to add Teams?</label>
+        <select id="team_add_bool" name="team_add_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="teams_to_add">Insert Team names to add, seperated by ","</label>
+        <textarea id="teams_to_add" name="teams_to_add" rows="2"></textarea><br>
+
+        <label for="op_erase_bool">Do you want to erase Operators?</label>
+        <select id="op_erase_bool" name="op_erase_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="op_to_erase">Insert Operators names to erase, seperated by ","</label>
+        <textarea id="op_to_erase" name="op_to_erase" rows="2"></textarea><br>
+
+
+        <label for="team_erase_bool">Do you want to erase Teams?</label>
+        <select id="team_erase_bool" name="team_erase_bool" required>
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+
+        <label for="teams_to_erase">Insert Team names to erase, seperated by ","</label>
+        <textarea id="teams_to_erase" name="teams_to_erase" rows="2"></textarea><br>
+
+
+        <!-- take into consideration that if the boolean isn't true, none of the details there will be
+        recorded-->
+
+        <button type="submit">Submit Changes</button>
+    </form>
+
+{% endblock %}
